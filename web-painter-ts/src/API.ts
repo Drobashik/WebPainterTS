@@ -1,8 +1,6 @@
-import { Circle } from "./core/figures/Circle"
-import { Sqaure } from "./core/figures/Square"
-import { Painter } from "./core/Painter"
-import { ToolInventory } from "./core/ToolInventory"
-import { DrawingElements, Listeners, Position } from "./core/types/types"
+import { Circle, Sqaure, Instrument, Recycle, Painter, ToolInventory } from "./core/index";
+import { wpElement } from "./core/models/constants";
+import { DrawingElements, Listeners, Position } from "./core/models/types";
 
 const handleCurrentPosition = (event: MouseEvent, element: HTMLElement, size: number): Position => {
     return {
@@ -11,19 +9,46 @@ const handleCurrentPosition = (event: MouseEvent, element: HTMLElement, size: nu
     }
 }
 
-const getTools = (event: MouseEvent, element: HTMLElement): DrawingElements => {
+const getTools = (
+    size: number,
+    color: string,
+    element?: HTMLElement,
+    event?: MouseEvent,
+): DrawingElements[] => {
     return [
-        new Circle(50, 'black', handleCurrentPosition(event, element, 50)),
-        new Sqaure(50, 'black', handleCurrentPosition(event, element, 50)),
+        new Circle(
+            size, color,
+            event || element
+                ? handleCurrentPosition(
+                    event as MouseEvent,
+                    element as HTMLElement,
+                    size
+                ) : null,
+        ),
+        new Sqaure(
+            size, color,
+            event || element
+                ? handleCurrentPosition(
+                    event as MouseEvent,
+                    element as HTMLElement,
+                    size
+                ) : null,
+        ),
     ]
 }
 
 export const intitiateApp = (): Listeners[] => {
-    const toolsInventory = new ToolInventory([
-        new Circle(75, 'black', null),
-        new Sqaure(75, 'black', null),
-    ])
-    const painter = new Painter(toolsInventory)
+    const instrumentExecutor = new Instrument([
+        new Recycle(wpElement.PAINTER, wpElement.RECYCLE.id),
+    ]);
+
+    const toolsInventory = new ToolInventory(
+        getTools(75, 'black'),
+        wpElement.TOOL_FIELD
+    );
+
+    const painter = new Painter(toolsInventory);
+
 
     toolsInventory.render();
 
@@ -32,10 +57,9 @@ export const intitiateApp = (): Listeners[] => {
         /* Tool object */
 
         {
-            element: toolsInventory.toolInventoryElement as HTMLElement,
+            element: wpElement.TOOL_FIELD,
             event: "click",
             callback: (event: Event) => {
-                console.log(event)
                 toolsInventory.choose(event.target as HTMLElement);
             }
         },
@@ -43,28 +67,34 @@ export const intitiateApp = (): Listeners[] => {
         /* Painting object */
 
         {
-            element: painter.painterFieldElement as HTMLElement,
+            element: wpElement.PAINTER,
             event: "mousedown",
             callback: (event: Event) => {
                 painter.startDraw();
                 painter.draw(getTools(
-                    event as MouseEvent, painter.painterFieldElement as HTMLElement
+                    50,
+                    'black',
+                    wpElement.PAINTER,
+                    event as MouseEvent,
                 ));
             }
         },
 
         {
-            element: painter.painterFieldElement as HTMLElement,
+            element: wpElement.PAINTER,
             event: "mousemove",
             callback: (event: Event) => {
                 painter.draw(getTools(
-                    event as MouseEvent, painter.painterFieldElement as HTMLElement
+                    50,
+                    'black',
+                    wpElement.PAINTER,
+                    event as MouseEvent,
                 ));
             }
         },
 
         {
-            element: painter.painterFieldElement as HTMLElement,
+            element: wpElement.PAINTER,
             event: "mouseup",
             callback: () => {
                 painter.endDraw();
@@ -72,5 +102,13 @@ export const intitiateApp = (): Listeners[] => {
         },
 
         /* Instrument object */
+
+        {
+            element: wpElement.RECYCLE,
+            event: "click",
+            callback: () => {
+                instrumentExecutor.executeWithTool(wpElement.RECYCLE.id, '')
+            }
+        },
     ]
 }

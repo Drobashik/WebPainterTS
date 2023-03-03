@@ -3,16 +3,16 @@ import { Figure } from "./figures/Figure";
 
 export class ToolInventory {
     public tools: Figure[];
-    public toolInventoryElement: HTMLElement | null;
+    private toolInventoryElement: HTMLElement | null;
     private _tool: string | null;
     private elementHandler: ElementConfigurator;
 
-    constructor(tools: Figure[]) {
+    constructor(tools: Figure[], toolInventoryElement: HTMLElement) {
         this.tools = tools;
+        this.toolInventoryElement = toolInventoryElement;
 
         this.elementHandler = new ElementConfigurator();
         this._tool = null;
-        this.toolInventoryElement = document.getElementById('tools');
     }
 
     get tool() {
@@ -39,17 +39,17 @@ export class ToolInventory {
             return;
         }
 
-        this.reset(false);
+        this.reset();
 
         toolElement.style.transform = 'scale(1.25)';
         this._tool = toolElement.className;
     }
 
-    reset(isFull: boolean): void {
+    reset(): void {
+        this._tool = null;
+
         for (const toolChildren of Array.from(this.toolInventoryElement!.children)) {
             (toolChildren as HTMLElement).style.transform = 'scale(1)';
         }
-
-        if (isFull) this._tool = null;
     }
 }
