@@ -1,5 +1,5 @@
 import { ElementConfigurator } from "../ElementConfigurator";
-import { Position } from "../types/types";
+import { Position } from "../models/types";
 
 export class Figure {
     public width: number;
@@ -28,7 +28,7 @@ export class Figure {
         return this._name;
     }
 
-    protected configureFigure(figure: Figure): HTMLElement {
+    protected configure(figure: Figure): HTMLElement {
         const createdFigureElement = this.elementHandler.configureElement(figure);
         this.elementHandler.setElementPosition(createdFigureElement, figure.position);
         this.elementHandler.insertElement(document.getElementById('painter'), createdFigureElement)

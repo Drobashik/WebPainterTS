@@ -1,4 +1,4 @@
-import { Position } from "../types/types";
+import { Position } from "../models/types";
 import { Figure } from "./Figure";
 
 export class Sqaure extends Figure {
@@ -16,6 +16,6 @@ export class Sqaure extends Figure {
     }
 
     configure(): HTMLElement {
-        return super.configureFigure(this)
+        return super.configure(this)
     }
 }
