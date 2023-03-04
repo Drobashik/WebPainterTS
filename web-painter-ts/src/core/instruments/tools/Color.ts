@@ -12,4 +12,6 @@ export class Color {
     execute(value: InstrumentValue) {
         this.value = value as string;
     }
+
+    reset() {}
 }

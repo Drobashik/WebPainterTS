@@ -13,4 +13,6 @@ export class Recycle {
         this.field.innerHTML = value as string;
         this.field.insertAdjacentHTML('afterbegin', '<div class="app__sides"></div>');
     }
+
+    reset() {}
 }

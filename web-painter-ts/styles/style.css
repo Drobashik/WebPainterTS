@@ -95,6 +95,7 @@ header {
   background-color: inherit;
   cursor: pointer;
   transition: 200ms;
+  position: relative;
 }
 
 .instruments>div:hover {
@@ -107,6 +108,36 @@ header {
 
 .instruments input {
   display: none;
+}
+
+.instruments #color {
+  display: block;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  opacity: 0;
+  top: -25px;
+  right: -10px;
+  cursor: pointer;
+}
+
+#clr-picker {
+  left: 96px !important;
+  top: 80px !important;
+  z-index: 999999 !important;
+  border: 1px solid #000 !important;
+  background-color: #d4eaec;
+}
+
+#clr-picker::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #000000 transparent;
 }
 
 .instruments img {
