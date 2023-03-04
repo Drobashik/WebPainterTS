@@ -58,11 +58,22 @@ header {
   background-color: #fff;
   padding: 20px;
   outline: 1px solid #000;
-  top: 50px;
+  top: 55px;
   position: absolute;
   z-index: 100000;
   accent-color: #000;
   border-radius: 10px;
+}
+
+.instruments__size .size__block::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent transparent #000000 transparent;
 }
 
 .instruments__size .size__block input {
@@ -73,7 +84,7 @@ header {
   cursor: pointer;
 }
 
-.instruments > div {
+.instruments>div {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -86,11 +97,11 @@ header {
   transition: 200ms;
 }
 
-.instruments > div:hover {
+.instruments>div:hover {
   background-color: rgb(228, 228, 228);
 }
 
-.instruments > div:active {
+.instruments>div:active {
   background-color: rgb(255, 255, 255);
 }
 
@@ -197,7 +208,7 @@ header {
   height: 80vh;
 }
 
-.app__figure-field > div {
+.app__figure-field>div {
   cursor: pointer;
   transition: 200ms;
 }

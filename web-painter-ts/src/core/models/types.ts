@@ -1,5 +1,6 @@
 import { Circle } from "../figures/Circle"
 import { Sqaure } from "../figures/Square"
+import { Range } from "../instruments/tools/Range";
 import { Recycle } from "../instruments/tools/Recycle";
 
 export type Position = {
@@ -17,11 +18,13 @@ export type WPElements = {
     PAINTER: HTMLElement,
     TOOL_FIELD: HTMLElement,
     RECYCLE: HTMLElement,
-    RANGE: HTMLElement,
+    RANGE_BUTTON: HTMLElement,
+    RANGE_INPUT: HTMLInputElement
 }
 
 export type DrawingElements = Circle | Sqaure;
 
-export type InstrumentTools = Recycle;
+export type InstrumentTools = Range | Recycle;
 
-export type InstrumentEvent<T> = Event | T;
+export type InstrumentValue = number | string;
+
