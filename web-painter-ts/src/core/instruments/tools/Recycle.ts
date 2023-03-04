@@ -1,3 +1,5 @@
+import { InstrumentValue } from "../../models/types";
+
 export class Recycle {
     public name: string;
     private field: HTMLElement;
@@ -7,8 +9,8 @@ export class Recycle {
         this.name = name;
     }
 
-    execute(event: Event | string) {
-        this.field.innerHTML = event as string;
+    execute(value: InstrumentValue) {
+        this.field.innerHTML = value as string;
         this.field.insertAdjacentHTML('afterbegin', '<div class="app__sides"></div>');
     }
 }

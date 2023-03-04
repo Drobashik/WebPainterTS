@@ -1,4 +1,5 @@
 import { Circle, Sqaure, Instrument, Recycle, Painter, ToolInventory } from "./core/index";
+import { Range } from "./core/instruments/tools/Range";
 import { wpElement } from "./core/models/constants";
 import { DrawingElements, Listeners, Position } from "./core/models/types";
 
@@ -18,8 +19,8 @@ const getTools = (
     return [
         new Circle(
             size, color,
-            event || element
-                ? handleCurrentPosition(
+            event || element ?
+                handleCurrentPosition(
                     event as MouseEvent,
                     element as HTMLElement,
                     size
@@ -27,8 +28,8 @@ const getTools = (
         ),
         new Sqaure(
             size, color,
-            event || element
-                ? handleCurrentPosition(
+            event || element ?
+                handleCurrentPosition(
                     event as MouseEvent,
                     element as HTMLElement,
                     size
@@ -40,6 +41,7 @@ const getTools = (
 export const intitiateApp = (): Listeners[] => {
     const instrumentExecutor = new Instrument([
         new Recycle(wpElement.PAINTER, wpElement.RECYCLE.id),
+        new Range(wpElement.RANGE_INPUT, wpElement.RANGE_INPUT.id)
     ]);
 
     const toolsInventory = new ToolInventory(
@@ -48,7 +50,6 @@ export const intitiateApp = (): Listeners[] => {
     );
 
     const painter = new Painter(toolsInventory);
-
 
     toolsInventory.render();
 
@@ -72,7 +73,7 @@ export const intitiateApp = (): Listeners[] => {
             callback: (event: Event) => {
                 painter.startDraw();
                 painter.draw(getTools(
-                    50,
+                    instrumentExecutor.range.value,
                     'black',
                     wpElement.PAINTER,
                     event as MouseEvent,
@@ -85,7 +86,7 @@ export const intitiateApp = (): Listeners[] => {
             event: "mousemove",
             callback: (event: Event) => {
                 painter.draw(getTools(
-                    50,
+                    instrumentExecutor.range.value,
                     'black',
                     wpElement.PAINTER,
                     event as MouseEvent,
@@ -110,5 +111,23 @@ export const intitiateApp = (): Listeners[] => {
                 instrumentExecutor.executeWithTool(wpElement.RECYCLE.id, '')
             }
         },
+
+        {
+            element: wpElement.RANGE_BUTTON,
+            event: "click",
+            callback: (event: Event) => {
+                instrumentExecutor.range.handle(event.target as HTMLElement);
+            }
+        },
+
+        {
+            element: wpElement.RANGE_INPUT,
+            event: "change",
+            callback: (event: Event) => {
+                instrumentExecutor.executeWithTool(
+                    wpElement.RANGE_INPUT.id, (event.target as HTMLInputElement).value
+                )
+            }
+        }
     ]
 }
