@@ -6,7 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/style.css" />
-    <script type="module" src="./src/main.ts"></script>
+    <link rel="stylesheet" href="src/color-picker/color.css" />
+    <script src="src/color-picker/color.min.js"></script>
+    <script async type="module" src="./src/main.ts"></script>
     <title>Web Painter</title>
 </head>
 
@@ -17,17 +19,14 @@
                 <div class="instruments__drag" id="dragger">
                     <img src="./public/icons/drag_icon.svg" alt="Drag">
                 </div>
-                <div class="instruments__paint">
-                    <img src="./public/icons/paint_icon.svg" alt="Pointer">
-                </div>
                 <div class="instruments__text" id="text">
                     <img src="./public/icons/letter_icon.svg" alt="Pointer">
                 </div>
-                <div class="instruments__color">
+                <div class="instruments__color" id="color-btn" >
                     <label for="color">
                         <img src="./public/icons/palette_icon.svg" alt="Palette">
                     </label>
-                    <input type="color" name="color" id="color">
+                    <input type="text" name="color" id="color" data-coloris>
                 </div>
                 <div class="instruments__size" id="size">
                     <label for="rangeType">

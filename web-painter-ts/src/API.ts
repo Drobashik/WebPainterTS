@@ -4,7 +4,11 @@ import { Range } from "./core/instruments/tools/Range";
 import { wpElement } from "./core/models/constants";
 import { DrawingElements, Listeners, Position } from "./core/models/types";
 
-const handleCurrentPosition = (event: MouseEvent, element: HTMLElement, size: number): Position => {
+const handleCurrentPosition = (
+    event: MouseEvent,
+    element: HTMLElement,
+    size: number
+): Position => {
     return {
         x: event.clientX - element.offsetLeft - size / 2,
         y: event.clientY - element.offsetTop - size / 2,
@@ -36,7 +40,7 @@ const getTools = (
                     size
                 ) : null,
         ),
-    ]
+    ];
 }
 
 export const intitiateApp = (): Listeners[] => {
@@ -62,7 +66,8 @@ export const intitiateApp = (): Listeners[] => {
         {
             element: wpElement.TOOL_FIELD,
             event: "click",
-            callback: (event: Event) => {
+            callback: (event: Event): void => {
+                instrumentExecutor.resetAll();
                 toolsInventory.choose(event.target as HTMLElement);
             }
         },
@@ -72,7 +77,9 @@ export const intitiateApp = (): Listeners[] => {
         {
             element: wpElement.PAINTER,
             event: "mousedown",
-            callback: (event: Event) => {
+            callback: (event: Event): void => {
+                instrumentExecutor.resetAll();
+
                 painter.startDraw();
                 painter.draw(getTools(
                     instrumentExecutor.range.value,
@@ -86,7 +93,7 @@ export const intitiateApp = (): Listeners[] => {
         {
             element: wpElement.PAINTER,
             event: "mousemove",
-            callback: (event: Event) => {
+            callback: (event: Event): void => {
                 painter.draw(getTools(
                     instrumentExecutor.range.value,
                     instrumentExecutor.color.value,
@@ -99,7 +106,7 @@ export const intitiateApp = (): Listeners[] => {
         {
             element: wpElement.PAINTER,
             event: "mouseup",
-            callback: () => {
+            callback: (): void => {
                 painter.endDraw();
             }
         },
@@ -109,7 +116,7 @@ export const intitiateApp = (): Listeners[] => {
         {
             element: wpElement.RECYCLE,
             event: "click",
-            callback: () => {
+            callback: (): void => {
                 instrumentExecutor.executeWithTool(wpElement.RECYCLE.id, '')
             }
         },
@@ -117,7 +124,7 @@ export const intitiateApp = (): Listeners[] => {
         {
             element: wpElement.RANGE_BUTTON,
             event: "click",
-            callback: (event: Event) => {
+            callback: (event: Event): void => {
                 instrumentExecutor.range.handle(event.target as HTMLElement);
             }
         },
@@ -125,7 +132,7 @@ export const intitiateApp = (): Listeners[] => {
         {
             element: wpElement.RANGE_INPUT,
             event: "change",
-            callback: (event: Event) => {
+            callback: (event: Event): void => {
                 instrumentExecutor.executeWithTool(
                     wpElement.RANGE_INPUT.id, (event.target as HTMLInputElement).value
                 )
@@ -135,10 +142,18 @@ export const intitiateApp = (): Listeners[] => {
         {
             element: wpElement.COLOR_INPUT,
             event: "input",
-            callback: (event: Event) => {
+            callback: (event: Event): void => {
                 const colorValue = (event.target as HTMLInputElement).value;
                 instrumentExecutor.executeWithTool(wpElement.COLOR_INPUT.id, colorValue);
             }
-        }
+        },
+
+        {
+            element: wpElement.COLOR_INPUT,
+            event: "click",
+            callback: (): void => {
+                instrumentExecutor.resetAll()
+            }
+        },
     ];
 }

@@ -19,6 +19,7 @@ export type WPElement = {
     PAINTER: HTMLElement,
     TOOL_FIELD: HTMLElement,
     RECYCLE: HTMLElement,
+    INSTRUMENT_FIELD: HTMLElement,
     RANGE_BUTTON: HTMLElement,
     RANGE_INPUT: HTMLInputElement,
     COLOR_INPUT: HTMLInputElement,

@@ -24,4 +24,11 @@ export class Instrument {
             }
         }
     }
+
+    resetAll(element?: HTMLElement) {
+        for (const instrument of this.instruments) {
+            if (element?.id === instrument.name) continue;
+            instrument.reset();
+        }
+    }
 }
