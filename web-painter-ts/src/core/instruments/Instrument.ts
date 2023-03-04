@@ -1,6 +1,6 @@
 import { InstrumentTools, InstrumentValue } from "../models/types";
+import { Color } from "./tools/Color";
 import { Range } from "./tools/Range";
-import { Recycle } from "./tools/Recycle";
 
 export class Instrument {
     public instruments: InstrumentTools[];
@@ -9,12 +9,12 @@ export class Instrument {
         this.instruments = instruments;
     }
 
-    get range() {
-        return this.instruments.find(instrument => instrument instanceof Range) as Range;
+    get color() {
+        return this.instruments.find(instrument => instrument instanceof Color) as Color;
     }
 
-    get recycle() {
-        return this.instruments.find(instrument => instrument instanceof Recycle) as Recycle;
+    get range() {
+        return this.instruments.find(instrument => instrument instanceof Range) as Range;
     }
 
     executeWithTool(id: string, value: InstrumentValue): void {

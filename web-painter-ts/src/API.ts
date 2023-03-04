@@ -1,4 +1,5 @@
 import { Circle, Sqaure, Instrument, Recycle, Painter, ToolInventory } from "./core/index";
+import { Color } from "./core/instruments/tools/Color";
 import { Range } from "./core/instruments/tools/Range";
 import { wpElement } from "./core/models/constants";
 import { DrawingElements, Listeners, Position } from "./core/models/types";
@@ -41,7 +42,8 @@ const getTools = (
 export const intitiateApp = (): Listeners[] => {
     const instrumentExecutor = new Instrument([
         new Recycle(wpElement.PAINTER, wpElement.RECYCLE.id),
-        new Range(wpElement.RANGE_INPUT, wpElement.RANGE_INPUT.id)
+        new Range(wpElement.RANGE_INPUT, wpElement.RANGE_INPUT.id),
+        new Color(wpElement.COLOR_INPUT.id),
     ]);
 
     const toolsInventory = new ToolInventory(
@@ -74,7 +76,7 @@ export const intitiateApp = (): Listeners[] => {
                 painter.startDraw();
                 painter.draw(getTools(
                     instrumentExecutor.range.value,
-                    'black',
+                    instrumentExecutor.color.value,
                     wpElement.PAINTER,
                     event as MouseEvent,
                 ));
@@ -87,7 +89,7 @@ export const intitiateApp = (): Listeners[] => {
             callback: (event: Event) => {
                 painter.draw(getTools(
                     instrumentExecutor.range.value,
-                    'black',
+                    instrumentExecutor.color.value,
                     wpElement.PAINTER,
                     event as MouseEvent,
                 ));
@@ -128,6 +130,15 @@ export const intitiateApp = (): Listeners[] => {
                     wpElement.RANGE_INPUT.id, (event.target as HTMLInputElement).value
                 )
             }
+        },
+
+        {
+            element: wpElement.COLOR_INPUT,
+            event: "input",
+            callback: (event: Event) => {
+                const colorValue = (event.target as HTMLInputElement).value;
+                instrumentExecutor.executeWithTool(wpElement.COLOR_INPUT.id, colorValue);
+            }
         }
-    ]
+    ];
 }

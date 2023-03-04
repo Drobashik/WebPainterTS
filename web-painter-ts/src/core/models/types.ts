@@ -1,5 +1,6 @@
 import { Circle } from "../figures/Circle"
 import { Sqaure } from "../figures/Square"
+import { Color } from "../instruments/tools/Color";
 import { Range } from "../instruments/tools/Range";
 import { Recycle } from "../instruments/tools/Recycle";
 
@@ -14,17 +15,18 @@ export type Listeners = {
     callback: (event: Event) => void,
 }
 
-export type WPElements = {
+export type WPElement = {
     PAINTER: HTMLElement,
     TOOL_FIELD: HTMLElement,
     RECYCLE: HTMLElement,
     RANGE_BUTTON: HTMLElement,
-    RANGE_INPUT: HTMLInputElement
+    RANGE_INPUT: HTMLInputElement,
+    COLOR_INPUT: HTMLInputElement,
 }
 
 export type DrawingElements = Circle | Sqaure;
 
-export type InstrumentTools = Range | Recycle;
+export type InstrumentTools = Range | Recycle | Color;
 
 export type InstrumentValue = number | string;
 
