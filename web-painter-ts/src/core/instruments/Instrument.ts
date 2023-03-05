@@ -27,7 +27,9 @@ export class Instrument {
 
     resetAll(element?: HTMLElement) {
         for (const instrument of this.instruments) {
-            if (element?.id === instrument.name) continue;
+            if (element?.id.includes(instrument.name) ||
+                element?.className.includes(instrument.name))
+                continue;
             instrument.reset();
         }
     }

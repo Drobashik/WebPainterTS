@@ -4,9 +4,9 @@ export class Range {
     public name: string;
     public value: number;
     private isShowed: boolean;
-    private rangeElement: HTMLInputElement;
+    private rangeElement: HTMLElement;
 
-    constructor(rangeElement: HTMLInputElement, name: string) {
+    constructor(rangeElement: HTMLElement, name: string) {
         this.rangeElement = rangeElement;
         this.name = name;
 
@@ -19,20 +19,20 @@ export class Range {
     }
 
     handle(clickedElement: HTMLElement): void {
-        if (clickedElement.tagName.includes(this.rangeElement.tagName)) return;
+        if (clickedElement.tagName.includes("INPUT")) return;
 
         this.isShowed = !this.isShowed;
 
         if (this.isShowed) {
-            (this.rangeElement.parentNode as HTMLElement).style.display = 'block';
+            (this.rangeElement.lastElementChild as HTMLElement).style.display = 'block';
             return;
         }
         
-        (this.rangeElement.parentNode as HTMLElement).style.display = 'none';
+        (this.rangeElement.lastElementChild as HTMLElement).style.display = 'none';
     }
 
     reset() {
         this.isShowed = false;
-        (this.rangeElement.parentNode as HTMLElement).style.display = 'none';
+        (this.rangeElement.lastElementChild as HTMLElement).style.display = 'none';
     }
 }

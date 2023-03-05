@@ -63,6 +63,7 @@ header {
   z-index: 100000;
   accent-color: #000;
   border-radius: 10px;
+  pointer-events: none;
 }
 
 .instruments__size .size__block::after {
@@ -78,10 +79,12 @@ header {
 
 .instruments__size .size__block input {
   display: block;
+  pointer-events: all;
 }
 
 .instruments label {
   cursor: pointer;
+  pointer-events: none;
 }
 
 .instruments>div {
@@ -143,6 +146,7 @@ header {
 .instruments img {
   width: 30px;
   cursor: pointer;
+  pointer-events: none;
 }
 
 .app__figure-field {

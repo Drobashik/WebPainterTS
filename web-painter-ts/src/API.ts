@@ -46,7 +46,7 @@ const getTools = (
 export const intitiateApp = (): Listeners[] => {
     const instrumentExecutor = new Instrument([
         new Recycle(wpElement.PAINTER, wpElement.RECYCLE.id),
-        new Range(wpElement.RANGE_INPUT, wpElement.RANGE_INPUT.id),
+        new Range(wpElement.RANGE_BUTTON, wpElement.RANGE_BUTTON.id),
         new Color(wpElement.COLOR_INPUT.id),
     ]);
 
@@ -60,6 +60,13 @@ export const intitiateApp = (): Listeners[] => {
     toolsInventory.render();
 
     return [
+        {
+            element: wpElement.INSTRUMENT_FIELD,
+            event: "click",
+            callback: (event: Event): void => {
+                instrumentExecutor.resetAll(event.target as HTMLElement);
+            }
+        },
 
         /* Tool object */
 
@@ -134,7 +141,7 @@ export const intitiateApp = (): Listeners[] => {
             event: "change",
             callback: (event: Event): void => {
                 instrumentExecutor.executeWithTool(
-                    wpElement.RANGE_INPUT.id, (event.target as HTMLInputElement).value
+                    wpElement.RANGE_BUTTON.id, (event.target as HTMLInputElement).value
                 )
             }
         },
@@ -148,12 +155,5 @@ export const intitiateApp = (): Listeners[] => {
             }
         },
 
-        {
-            element: wpElement.COLOR_INPUT,
-            event: "click",
-            callback: (): void => {
-                instrumentExecutor.resetAll()
-            }
-        },
     ];
 }
