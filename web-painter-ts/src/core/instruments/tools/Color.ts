@@ -1,6 +1,6 @@
-import { InstrumentValue } from "../../models/types";
+import { IInstrument, InstrumentValue } from "../../models/types";
 
-export class Color {
+export class Color implements IInstrument {
     public name: string;
     public value: string;
 
@@ -12,6 +12,8 @@ export class Color {
     execute(value: InstrumentValue) {
         this.value = value as string;
     }
+
+    handle() {}
 
     reset() {}
 }

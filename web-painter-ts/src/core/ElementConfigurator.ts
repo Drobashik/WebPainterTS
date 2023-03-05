@@ -1,9 +1,10 @@
 import { Circle } from "./figures/Circle";
 import { Figure } from "./figures/Figure";
+import { Image } from "./instruments/tools/Image";
 import { Position } from "./models/types";
 
 export class ElementConfigurator {
-    createElement(elementName: string = 'div', object: Figure): HTMLElement {
+    createElement(elementName: string = 'div', object: Figure | Image): HTMLElement {
         const element = document.createElement(elementName);
         element.className = object.name;
         return element;
