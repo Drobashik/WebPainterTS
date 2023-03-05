@@ -1,8 +1,15 @@
 import { Circle } from "../figures/Circle"
 import { Sqaure } from "../figures/Square"
 import { Color } from "../instruments/tools/Color";
+import { Image } from "../instruments/tools/Image";
 import { Range } from "../instruments/tools/Range";
 import { Recycle } from "../instruments/tools/Recycle";
+
+export interface IInstrument {
+    execute: (value: InstrumentValue) => void,
+    handle: (clickedElement?: HTMLElement) => void,
+    reset: () => void,
+}
 
 export type Position = {
     x: number,
@@ -23,11 +30,13 @@ export type WPElement = {
     RANGE_BUTTON: HTMLElement,
     RANGE_INPUT: HTMLInputElement,
     COLOR_INPUT: HTMLInputElement,
+    IMAGE_BUTTON: HTMLElement,
+    IMAGE_INPUT: HTMLInputElement,
 }
 
 export type DrawingElements = Circle | Sqaure;
 
-export type InstrumentTools = Range | Recycle | Color;
+export type InstrumentTools = Range | Recycle | Color | Image;
 
-export type InstrumentValue = number | string;
+export type InstrumentValue = number | string | File | undefined;
 

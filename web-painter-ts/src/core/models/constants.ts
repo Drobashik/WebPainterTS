@@ -8,4 +8,6 @@ export const wpElement: WPElement = {
     RANGE_BUTTON: document.getElementById('size') as HTMLElement,
     RANGE_INPUT: document.getElementById('range') as HTMLInputElement,
     COLOR_INPUT: document.getElementById('color') as HTMLInputElement,
+    IMAGE_BUTTON: document.getElementById('file-btn') as HTMLElement,
+    IMAGE_INPUT: document.getElementById('fileType') as HTMLInputElement,
 }

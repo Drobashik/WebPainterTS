@@ -1,6 +1,6 @@
-import { InstrumentValue } from "../../models/types";
+import { IInstrument, InstrumentValue } from "../../models/types";
 
-export class Recycle {
+export class Recycle implements IInstrument {
     public name: string;
     private field: HTMLElement;
 
@@ -13,6 +13,8 @@ export class Recycle {
         this.field.innerHTML = value as string;
         this.field.insertAdjacentHTML('afterbegin', '<div class="app__sides"></div>');
     }
+
+    handle() {};
 
     reset() {}
 }

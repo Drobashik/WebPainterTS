@@ -1,8 +1,9 @@
-import { Circle, Sqaure, Instrument, Recycle, Painter, ToolInventory } from "./core/index";
-import { Color } from "./core/instruments/tools/Color";
-import { Range } from "./core/instruments/tools/Range";
-import { wpElement } from "./core/models/constants";
-import { DrawingElements, Listeners, Position } from "./core/models/types";
+import { Circle, Sqaure, Instrument, Recycle, Painter, ToolInventory } from "./index";
+import { Color } from "./instruments/tools/Color";
+import { Image } from "./instruments/tools/Image";
+import { Range } from "./instruments/tools/Range";
+import { wpElement } from "./models/constants";
+import { DrawingElements, Listeners, Position } from "./models/types";
 
 const handleCurrentPosition = (
     event: MouseEvent,
@@ -47,6 +48,7 @@ export const intitiateApp = (): Listeners[] => {
     const instrumentExecutor = new Instrument([
         new Recycle(wpElement.PAINTER, wpElement.RECYCLE.id),
         new Range(wpElement.RANGE_BUTTON, wpElement.RANGE_BUTTON.id),
+        new Image(wpElement.IMAGE_BUTTON, wpElement.IMAGE_BUTTON.id),
         new Color(wpElement.COLOR_INPUT.id),
     ]);
 
@@ -124,7 +126,7 @@ export const intitiateApp = (): Listeners[] => {
             element: wpElement.RECYCLE,
             event: "click",
             callback: (): void => {
-                instrumentExecutor.executeWithTool(wpElement.RECYCLE.id, '')
+                instrumentExecutor.executeWithTool(wpElement.RECYCLE.id)
             }
         },
 
@@ -155,5 +157,23 @@ export const intitiateApp = (): Listeners[] => {
             }
         },
 
+        {
+            element: wpElement.IMAGE_BUTTON,
+            event: "click",
+            callback: () => {
+                instrumentExecutor.image.handle();
+            }
+        },
+
+        {
+            element: wpElement.IMAGE_INPUT,
+            event: 'change',
+            callback: (event: Event) => {
+                instrumentExecutor.executeWithTool(
+                    wpElement.IMAGE_BUTTON.id, (event.target as HTMLInputElement).files![0]
+                );
+                (event.target as HTMLInputElement).value = '';
+            }
+        }
     ];
 }

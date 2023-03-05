@@ -1,5 +1,6 @@
 import { InstrumentTools, InstrumentValue } from "../models/types";
 import { Color } from "./tools/Color";
+import { Image } from "./tools/Image";
 import { Range } from "./tools/Range";
 
 export class Instrument {
@@ -17,7 +18,11 @@ export class Instrument {
         return this.instruments.find(instrument => instrument instanceof Range) as Range;
     }
 
-    executeWithTool(id: string, value: InstrumentValue): void {
+    get image() {
+        return this.instruments.find(instrument => instrument instanceof Image) as Image;
+    }
+
+    executeWithTool(id: string, value?: InstrumentValue): void {
         for (const instrument of this.instruments) {
             if (id === instrument.name) {
                 instrument.execute(value);

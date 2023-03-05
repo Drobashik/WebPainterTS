@@ -1,6 +1,6 @@
-import { InstrumentValue } from "../../models/types";
+import { IInstrument, InstrumentValue } from "../../models/types";
 
-export class Range {
+export class Range implements IInstrument {
     public name: string;
     public value: number;
     private isShowed: boolean;
@@ -18,8 +18,8 @@ export class Range {
         this.value = value as number;
     }
 
-    handle(clickedElement: HTMLElement): void {
-        if (clickedElement.tagName.includes("INPUT")) return;
+    handle(clickedElement?: HTMLElement): void {
+        if (clickedElement?.tagName.includes("INPUT")) return;
 
         this.isShowed = !this.isShowed;
 
