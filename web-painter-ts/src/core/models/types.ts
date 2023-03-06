@@ -23,10 +23,10 @@ export type Listeners = {
 }
 
 export type WPElement = {
-    PAINTER: HTMLElement,
+    PAINTER_FIELD: HTMLElement,
     TOOL_FIELD: HTMLElement,
-    RECYCLE: HTMLElement,
     INSTRUMENT_FIELD: HTMLElement,
+    RECYCLE_BUTTON: HTMLElement,
     RANGE_BUTTON: HTMLElement,
     RANGE_INPUT: HTMLInputElement,
     COLOR_INPUT: HTMLInputElement,

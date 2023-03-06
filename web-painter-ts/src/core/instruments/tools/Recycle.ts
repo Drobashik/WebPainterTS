@@ -9,7 +9,7 @@ export class Recycle implements IInstrument {
         this.name = name;
     }
 
-    execute(value: InstrumentValue) {
+    execute(value: InstrumentValue): void {
         this.field.innerHTML = value as string;
         this.field.insertAdjacentHTML('afterbegin', '<div class="app__sides"></div>');
     }

@@ -14,17 +14,17 @@ export class Image implements IInstrument {
         this.elementHandler = new ElementConfigurator();
     }
 
-    setImagePosition(imageElement: HTMLImageElement) {
+    setImagePosition(imageElement: HTMLImageElement): void {
         setTimeout(() => {
-            this.elementHandler.insertElement(wpElement.PAINTER, imageElement)
+            this.elementHandler.insertElement(wpElement.PAINTER_FIELD, imageElement)
             this.elementHandler.setElementPosition(imageElement, {
-                x: wpElement.PAINTER.offsetWidth / 2 - imageElement.offsetWidth / 2,
-                y: wpElement.PAINTER.offsetHeight / 2 - imageElement.offsetHeight / 2,
+                x: wpElement.PAINTER_FIELD.offsetWidth / 2 - imageElement.offsetWidth / 2,
+                y: wpElement.PAINTER_FIELD.offsetHeight / 2 - imageElement.offsetHeight / 2,
             })
         }, 10)
     }
 
-    execute(file: InstrumentValue) {
+    execute(file: InstrumentValue): void {
         const fileURL = URL.createObjectURL(file as Blob);
         const imageElement = this.elementHandler.createElement('img', this) as HTMLImageElement;
         imageElement.src = fileURL;
@@ -32,9 +32,9 @@ export class Image implements IInstrument {
         this.setImagePosition(imageElement);
     }
 
-    handle() {
+    handle(): void {
         (this.imageElement.lastElementChild as HTMLInputElement).click();
     }
 
-    reset() {}
+    reset(): void {}
 }

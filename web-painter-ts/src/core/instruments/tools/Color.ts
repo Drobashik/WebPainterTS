@@ -9,11 +9,11 @@ export class Color implements IInstrument {
         this.value = 'black';
     }
 
-    execute(value: InstrumentValue) {
+    execute(value: InstrumentValue): void {
         this.value = value as string;
     }
 
-    handle() {}
+    handle(): void {}
 
-    reset() {}
+    reset(): void {}
 }

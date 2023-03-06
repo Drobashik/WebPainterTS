@@ -1,6 +1,4 @@
-import { Circle } from "./figures/Circle";
-import { Figure } from "./figures/Figure";
-import { Image } from "./instruments/tools/Image";
+import { Circle, Figure, Image } from './index';
 import { Position } from "./models/types";
 
 export class ElementConfigurator {

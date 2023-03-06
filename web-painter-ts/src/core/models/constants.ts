@@ -1,10 +1,10 @@
 import { WPElement } from "./types";
 
 export const wpElement: WPElement = {
-    PAINTER: document.getElementById('painter') as HTMLElement,
+    PAINTER_FIELD: document.getElementById('painter') as HTMLElement,
     TOOL_FIELD: document.getElementById('tools') as HTMLElement,
-    RECYCLE: document.getElementById('recycle') as HTMLElement,
     INSTRUMENT_FIELD: document.getElementById('instruments') as HTMLElement,
+    RECYCLE_BUTTON: document.getElementById('recycle') as HTMLElement,
     RANGE_BUTTON: document.getElementById('size') as HTMLElement,
     RANGE_INPUT: document.getElementById('range') as HTMLInputElement,
     COLOR_INPUT: document.getElementById('color') as HTMLInputElement,
