@@ -13,6 +13,8 @@ export class ToolInventory {
 
         this.elementHandler = new ElementConfigurator();
         this._tool = null;
+
+        this.render();
     }
 
     get tool() {

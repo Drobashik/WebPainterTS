@@ -1,179 +1,39 @@
-import { Circle, Sqaure, Instrument, Recycle, Painter, ToolInventory } from "./index";
-import { Color } from "./instruments/tools/Color";
-import { Image } from "./instruments/tools/Image";
-import { Range } from "./instruments/tools/Range";
-import { wpElement } from "./models/constants";
-import { DrawingElements, Listeners, Position } from "./models/types";
-
-const handleCurrentPosition = (
-    event: MouseEvent,
-    element: HTMLElement,
-    size: number
-): Position => {
-    return {
-        x: event.clientX - element.offsetLeft - size / 2,
-        y: event.clientY - element.offsetTop - size / 2,
-    }
-}
-
-const getTools = (
-    size: number,
-    color: string,
-    element?: HTMLElement,
-    event?: MouseEvent,
-): DrawingElements[] => {
-    return [
-        new Circle(
-            size, color,
-            event || element ?
-                handleCurrentPosition(
-                    event as MouseEvent,
-                    element as HTMLElement,
-                    size
-                ) : null,
-        ),
-        new Sqaure(
-            size, color,
-            event || element ?
-                handleCurrentPosition(
-                    event as MouseEvent,
-                    element as HTMLElement,
-                    size
-                ) : null,
-        ),
-    ];
-}
+import {
+    Instrument, Recycle,
+    Painter, ToolInventory, Color, Image, 
+    Range, wpElement, ToolManager, InstrumentManager,
+    PaintManager,
+} from "./index";
+import { Listeners } from "./models/types";
 
 export const intitiateApp = (): Listeners[] => {
-    const instrumentExecutor = new Instrument([
-        new Recycle(wpElement.PAINTER, wpElement.RECYCLE.id),
-        new Range(wpElement.RANGE_BUTTON, wpElement.RANGE_BUTTON.id),
-        new Image(wpElement.IMAGE_BUTTON, wpElement.IMAGE_BUTTON.id),
-        new Color(wpElement.COLOR_INPUT.id),
-    ]);
-
-    const toolsInventory = new ToolInventory(
-        getTools(75, 'black'),
-        wpElement.TOOL_FIELD
+    const instrumentManager = new InstrumentManager(
+        new Instrument([
+            new Recycle(wpElement.PAINTER_FIELD, wpElement.RECYCLE_BUTTON.id),
+            new Range(wpElement.RANGE_BUTTON, wpElement.RANGE_BUTTON.id),
+            new Image(wpElement.IMAGE_BUTTON, wpElement.IMAGE_BUTTON.id),
+            new Color(wpElement.COLOR_INPUT.id),
+        ])
     );
 
-    const painter = new Painter(toolsInventory);
+    const toolManager = new ToolManager(
+        new ToolInventory(
+            PaintManager.getTools(75, 'black'),
+            wpElement.TOOL_FIELD
+        ),
+        instrumentManager.executor
+    );
 
-    toolsInventory.render();
+    const paintManager = new PaintManager(
+        new Painter(toolManager.inventory),
+        instrumentManager.executor
+    );
 
     return [
-        {
-            element: wpElement.INSTRUMENT_FIELD,
-            event: "click",
-            callback: (event: Event): void => {
-                instrumentExecutor.resetAll(event.target as HTMLElement);
-            }
-        },
-
-        /* Tool object */
-
-        {
-            element: wpElement.TOOL_FIELD,
-            event: "click",
-            callback: (event: Event): void => {
-                instrumentExecutor.resetAll();
-                toolsInventory.choose(event.target as HTMLElement);
-            }
-        },
-
-        /* Painting object */
-
-        {
-            element: wpElement.PAINTER,
-            event: "mousedown",
-            callback: (event: Event): void => {
-                instrumentExecutor.resetAll();
-
-                painter.startDraw();
-                painter.draw(getTools(
-                    instrumentExecutor.range.value,
-                    instrumentExecutor.color.value,
-                    wpElement.PAINTER,
-                    event as MouseEvent,
-                ));
-            }
-        },
-
-        {
-            element: wpElement.PAINTER,
-            event: "mousemove",
-            callback: (event: Event): void => {
-                painter.draw(getTools(
-                    instrumentExecutor.range.value,
-                    instrumentExecutor.color.value,
-                    wpElement.PAINTER,
-                    event as MouseEvent,
-                ));
-            }
-        },
-
-        {
-            element: wpElement.PAINTER,
-            event: "mouseup",
-            callback: (): void => {
-                painter.endDraw();
-            }
-        },
-
-        /* Instrument object */
-
-        {
-            element: wpElement.RECYCLE,
-            event: "click",
-            callback: (): void => {
-                instrumentExecutor.executeWithTool(wpElement.RECYCLE.id)
-            }
-        },
-
-        {
-            element: wpElement.RANGE_BUTTON,
-            event: "click",
-            callback: (event: Event): void => {
-                instrumentExecutor.range.handle(event.target as HTMLElement);
-            }
-        },
-
-        {
-            element: wpElement.RANGE_INPUT,
-            event: "change",
-            callback: (event: Event): void => {
-                instrumentExecutor.executeWithTool(
-                    wpElement.RANGE_BUTTON.id, (event.target as HTMLInputElement).value
-                )
-            }
-        },
-
-        {
-            element: wpElement.COLOR_INPUT,
-            event: "input",
-            callback: (event: Event): void => {
-                const colorValue = (event.target as HTMLInputElement).value;
-                instrumentExecutor.executeWithTool(wpElement.COLOR_INPUT.id, colorValue);
-            }
-        },
-
-        {
-            element: wpElement.IMAGE_BUTTON,
-            event: "click",
-            callback: () => {
-                instrumentExecutor.image.handle();
-            }
-        },
-
-        {
-            element: wpElement.IMAGE_INPUT,
-            event: 'change',
-            callback: (event: Event) => {
-                instrumentExecutor.executeWithTool(
-                    wpElement.IMAGE_BUTTON.id, (event.target as HTMLInputElement).files![0]
-                );
-                (event.target as HTMLInputElement).value = '';
-            }
-        }
+        ...toolManager.getToolListeners(),
+        ...paintManager.getPaintListeners(),
+        ...instrumentManager.getFieldInstrumentListener(),
+        ...instrumentManager.getInputInstrumentListeners(),
+        ...instrumentManager.getButtonInstrumentListeners(),
     ];
 }

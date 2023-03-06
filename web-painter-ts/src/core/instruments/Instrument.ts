@@ -1,7 +1,5 @@
 import { InstrumentTools, InstrumentValue } from "../models/types";
-import { Color } from "./tools/Color";
-import { Image } from "./tools/Image";
-import { Range } from "./tools/Range";
+import { Color, Range } from '../index';
 
 export class Instrument {
     public instruments: InstrumentTools[];
@@ -18,22 +16,23 @@ export class Instrument {
         return this.instruments.find(instrument => instrument instanceof Range) as Range;
     }
 
-    get image() {
-        return this.instruments.find(instrument => instrument instanceof Image) as Image;
-    }
-
     executeWithTool(id: string, value?: InstrumentValue): void {
         for (const instrument of this.instruments) {
-            if (id === instrument.name) {
+            if (id === instrument.name)
                 instrument.execute(value);
-            }
         }
     }
 
-    resetAll(element?: HTMLElement) {
+    handleWith(id: string, clickedElement?: HTMLElement): void {
         for (const instrument of this.instruments) {
-            if (element?.id.includes(instrument.name) ||
-                element?.className.includes(instrument.name))
+            if (id === instrument.name) 
+                instrument.handle(clickedElement)
+        }
+    }
+
+    resetAll(element?: HTMLElement): void {
+        for (const instrument of this.instruments) {
+            if (element?.id.includes(instrument.name) || element?.className.includes(instrument.name))
                 continue;
             instrument.reset();
         }

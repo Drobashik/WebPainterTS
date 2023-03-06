@@ -14,7 +14,7 @@ export class Range implements IInstrument {
         this.value = 50;
     }
 
-    execute(value: InstrumentValue) {
+    execute(value: InstrumentValue): void {
         this.value = value as number;
     }
 
@@ -31,7 +31,7 @@ export class Range implements IInstrument {
         (this.rangeElement.lastElementChild as HTMLElement).style.display = 'none';
     }
 
-    reset() {
+    reset(): void {
         this.isShowed = false;
         (this.rangeElement.lastElementChild as HTMLElement).style.display = 'none';
     }
