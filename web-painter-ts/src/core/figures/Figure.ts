@@ -1,4 +1,4 @@
-import { ElementConfigurator } from "../ElementConfigurator";
+import { ElementConfigurator } from "../features/ElementConfigurator";
 import { Position } from "../models/types";
 
 export class Figure {

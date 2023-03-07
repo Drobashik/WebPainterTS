@@ -1,5 +1,4 @@
 import { InstrumentTools, InstrumentValue } from "../models/types";
-import { Color, Range } from '../index';
 
 export class Instrument {
     public instruments: InstrumentTools[];
@@ -8,12 +7,12 @@ export class Instrument {
         this.instruments = instruments;
     }
 
-    get color() {
-        return this.instruments.find(instrument => instrument instanceof Color) as Color;
-    }
-
-    get range() {
-        return this.instruments.find(instrument => instrument instanceof Range) as Range;
+    getValue(id?: string): string | number | null {
+        for (const instrument of this.instruments) {
+            if(instrument.name === id)
+                return instrument.value;
+        }
+        return null;
     }
 
     executeWithTool(id: string, value?: InstrumentValue): void {

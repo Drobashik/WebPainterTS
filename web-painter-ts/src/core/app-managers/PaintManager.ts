@@ -57,10 +57,9 @@ export class PaintManager {
                 callback: (event: Event): void => {
                     this.instrumentExecutor.resetAll();
     
-                    this.painter.startDraw();
-                    this.painter.draw(PaintManager.getTools(
-                        this.instrumentExecutor.range.value,
-                        this.instrumentExecutor.color.value,
+                    this.painter.startDraw(PaintManager.getTools(
+                        this.instrumentExecutor.getValue(wpElement.RANGE_BUTTON.id) as number,
+                        this.instrumentExecutor.getValue(wpElement.COLOR_INPUT.id) as string,
                         wpElement.PAINTER_FIELD,
                         event as MouseEvent,
                     ));
@@ -72,8 +71,8 @@ export class PaintManager {
                 event: "mousemove",
                 callback: (event: Event): void => {
                     this.painter.draw(PaintManager.getTools(
-                        this.instrumentExecutor.range.value,
-                        this.instrumentExecutor.color.value,
+                        this.instrumentExecutor.getValue(wpElement.RANGE_BUTTON.id) as number,
+                        this.instrumentExecutor.getValue(wpElement.COLOR_INPUT.id) as string, 
                         wpElement.PAINTER_FIELD,
                         event as MouseEvent,
                     ));
@@ -87,6 +86,6 @@ export class PaintManager {
                     this.painter.endDraw();
                 }
             },
-        ]
+        ];
     }
 }
