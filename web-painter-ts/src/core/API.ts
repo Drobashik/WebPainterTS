@@ -17,10 +17,7 @@ export const intitiateApp = (): Listeners[] => {
     );
 
     const toolManager = new ToolManager(
-        new ToolInventory(
-            PaintManager.getTools(75, 'black'),
-            wpElement.TOOL_FIELD
-        ),
+        new ToolInventory(PaintManager.getTools(75, 'black'), wpElement.TOOL_FIELD),
         instrumentManager.executor
     );
 

@@ -1,6 +1,6 @@
-import { Painter } from "./Painter";
-import { ElementConfigurator } from "./ElementConfigurator";
-import { ToolInventory } from "./ToolInventory";
+import { Painter } from "./features/Painter";
+import { ElementConfigurator } from "./features/ElementConfigurator";
+import { ToolInventory } from "./features/ToolInventory";
 import { Instrument } from "./instruments/Instrument";
 import { Circle } from "./figures/Circle";
 import { Figure } from "./figures/Figure";

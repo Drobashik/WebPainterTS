@@ -1,16 +1,18 @@
-import { ElementConfigurator } from "../../ElementConfigurator";
+import { ElementConfigurator } from "../../features/ElementConfigurator";
 import { wpElement } from "../../models/constants";
 import { IInstrument, InstrumentValue } from "../../models/types";
 
 export class Image implements IInstrument {
     public imageElement: HTMLElement;
     public name: string;
+    public value: string | null;
     private elementHandler: ElementConfigurator;
 
     constructor(imageElement: HTMLElement, name: string) {
         this.imageElement = imageElement;
         this.name = name;
 
+        this.value = null;
         this.elementHandler = new ElementConfigurator();
     }
 

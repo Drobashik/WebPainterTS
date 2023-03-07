@@ -1,5 +1,5 @@
 import { ToolInventory } from "./ToolInventory";
-import { DrawingElements } from "./models/types";
+import { DrawingElements } from "../models/types";
 
 export class Painter {
     public toolInventory: ToolInventory;
@@ -10,8 +10,9 @@ export class Painter {
         this.isReadyDraw = false;
     }
 
-    startDraw(): void {
+    startDraw(tools: DrawingElements[]): void {
         this.isReadyDraw = true;
+        this.draw(tools);
     }
 
     draw(tools: DrawingElements[]): void {

@@ -1,5 +1,5 @@
-import { Circle, Figure, Image } from './index';
-import { Position } from "./models/types";
+import { Circle, Figure, Image } from '../index';
+import { Position } from "../models/types";
 
 export class ElementConfigurator {
     createElement(elementName: string = 'div', object: Figure | Image): HTMLElement {

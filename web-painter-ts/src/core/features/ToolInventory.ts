@@ -1,5 +1,5 @@
 import { ElementConfigurator } from "./ElementConfigurator";
-import { Figure } from "./figures/Figure";
+import { Figure } from "../figures/Figure";
 
 export class ToolInventory {
     public tools: Figure[];
@@ -35,7 +35,7 @@ export class ToolInventory {
     choose(toolElement: HTMLElement): void {
         if (toolElement.id === 'tools') return;
 
-        if (toolElement.className === this._tool) {
+        if (toolElement.className !== this._tool) {
             toolElement.style.transform = 'scale(1)';
             this._tool = null;
             return;
